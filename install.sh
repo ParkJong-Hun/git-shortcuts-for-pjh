@@ -67,6 +67,13 @@ EOF
     echo "  git-commit-all     - Add all changes and commit"
     echo "  git-reset-this     - Hard reset to HEAD (with confirmation)"
     echo ""
+    echo "Short aliases:"
+    echo "  pit -s             - Same as git-setup"
+    echo "  pit -p             - Same as git-push-this"
+    echo "  pit -c \"msg\"       - Same as git-commit-all"
+    echo "  pit -r             - Same as git-reset-this"
+    echo "  pit -h             - Show help message"
+    echo ""
     echo "To activate now, run: source $SHELL_CONFIG"
     echo "Or restart your terminal"
 }

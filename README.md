@@ -16,24 +16,35 @@ source ~/.bashrc # if using bash
 
 ## Available Commands
 
-| Shortcut Command | Original Command | Description |
-|-----------------|------------------|-------------|
-| `git-setup` | `brew install git` (or apt-get, yum, etc.) | Install git using package manager |
-| `git-push-this` | `git push origin {current-branch}` | Push current branch to origin |
-| `git-commit-all "message"` | `git add . && git commit -m "message"` | Stage all changes and commit |
-| `git-reset-this` | `git reset --hard HEAD` | Hard reset to HEAD (with confirmation) |
+| Shortcut Command | Shorter Alias | Original Command | Description |
+|-----------------|---------------|------------------|-------------|
+| `git-setup` | `pit -s` | `brew install git` (or apt-get, yum, etc.) | Install git using package manager |
+| `git-push-this` | `pit -p` | `git push origin {current-branch}` | Push current branch to origin |
+| `git-commit-all "message"` | `pit -c "message"` | `git add . && git commit -m "message"` | Stage all changes and commit |
+| `git-reset-this` | `pit -r` | `git reset --hard HEAD` | Hard reset to HEAD (with confirmation) |
 
 ## Usage Examples
 
 ```bash
+# Show help
+pit -h
+# or
+git-shortcuts-for-pjh-help
+
 # Commit all changes
 git-commit-all "feat: add new feature"
+# or shorter
+pit -c "feat: add new feature"
 
 # Push current branch
 git-push-this
+# or shorter
+pit -p
 
 # Discard all changes
 git-reset-this
+# or shorter
+pit -r
 ```
 
 ## Uninstallation

@@ -2,6 +2,39 @@
 # Git Shortcuts - Cross-platform git command aliases
 # Compatible with bash, zsh on macOS, Linux, Windows (Git Bash/WSL)
 
+# Help function
+git-shortcuts-for-pjh-help() {
+    cat << 'EOF'
+Git Shortcuts - Available Commands
+
+FULL COMMANDS:
+  git-setup              Install git using package manager
+  git-push-this          Push current branch to origin
+  git-commit-all "msg"   Stage all changes and commit with message
+  git-reset-this         Hard reset to HEAD (with confirmation)
+
+SHORT ALIASES:
+  pit -s                 Same as git-setup
+  pit -p                 Same as git-push-this
+  pit -c "msg"           Same as git-commit-all
+  pit -r                 Same as git-reset-this
+  pit -h                 Show this help message
+
+USAGE EXAMPLES:
+  git-commit-all "feat: add new feature"
+  pit -c "feat: add new feature"
+
+  git-push-this
+  pit -p
+
+  git-reset-this
+  pit -r
+
+For more information, visit:
+https://github.com/parkjonghun/git-shortcut-for-pjh
+EOF
+}
+
 # git setup - Install git using appropriate package manager
 git-setup() {
     if command -v brew >/dev/null 2>&1; then
@@ -58,3 +91,31 @@ alias git-setup='git-setup'
 alias git-push-this='git-push-this'
 alias git-commit-all='git-commit-all'
 alias git-reset-this='git-reset-this'
+
+# Shorter aliases using 'pit' prefix
+pit() {
+    case "$1" in
+        -h|--help)
+            git-shortcuts-for-pjh-help
+            ;;
+        -s)
+            shift
+            git-setup "$@"
+            ;;
+        -p)
+            shift
+            git-push-this "$@"
+            ;;
+        -c)
+            shift
+            git-commit-all "$@"
+            ;;
+        -r)
+            shift
+            git-reset-this "$@"
+            ;;
+        *)
+            git "$@"
+            ;;
+    esac
+}
