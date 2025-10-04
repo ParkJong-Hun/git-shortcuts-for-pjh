@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# Git Shortcuts - Cross-platform git command aliases
+# Compatible with bash, zsh on macOS, Linux, Windows (Git Bash/WSL)
+
+# git setup - Install git using appropriate package manager
+git-setup() {
+    if command -v brew >/dev/null 2>&1; then
+        brew install git
+    elif command -v apt-get >/dev/null 2>&1; then
+        sudo apt-get update && sudo apt-get install -y git
+    elif command -v yum >/dev/null 2>&1; then
+        sudo yum install -y git
+    elif command -v pacman >/dev/null 2>&1; then
+        sudo pacman -S git
+    elif command -v choco >/dev/null 2>&1; then
+        choco install git
+    else
+        echo "Error: No supported package manager found (brew, apt-get, yum, pacman, choco)"
+        return 1
+    fi
+}
+
+# git push-this - Push current branch to origin
+git-push-this() {
+    local current_branch=$(git branch --show-current 2>/dev/null)
+    if [ -z "$current_branch" ]; then
+        echo "Error: Not in a git repository or no branch checked out"
+        return 1
+    fi
+    git push origin "$current_branch" "$@"
+}
+
+# git commit-all - Add all changes and commit with message
+git-commit-all() {
+    if [ -z "$1" ]; then
+        echo "Error: Commit message required"
+        echo "Usage: git-commit-all \"your commit message\""
+        return 1
+    fi
+    git add . && git commit -m "$1"
+}
+
+# git reset-this - Hard reset to HEAD
+git-reset-this() {
+    echo "Warning: This will discard all uncommitted changes!"
+    read -p "Are you sure? (y/N) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        git reset --hard HEAD
+    else
+        echo "Reset cancelled"
+        return 1
+    fi
+}
+
+# Aliases for 'git' prefix usage
+alias git-setup='git-setup'
+alias git-push-this='git-push-this'
+alias git-commit-all='git-commit-all'
+alias git-reset-this='git-reset-this'
