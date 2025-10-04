@@ -36,7 +36,7 @@ EOF
 }
 
 # git setup - Install git using appropriate package manager
-git-setup() {
+gitsetup() {
     if command -v brew >/dev/null 2>&1; then
         brew install git
     elif command -v apt-get >/dev/null 2>&1; then
@@ -54,7 +54,7 @@ git-setup() {
 }
 
 # git push-this - Push current branch to origin
-git-push-this() {
+gitpushthis() {
     local current_branch=$(git branch --show-current 2>/dev/null)
     if [ -z "$current_branch" ]; then
         echo "Error: Not in a git repository or no branch checked out"
@@ -64,7 +64,7 @@ git-push-this() {
 }
 
 # git commit-all - Add all changes and commit with message
-git-commit-all() {
+gitcommitall() {
     if [ -z "$1" ]; then
         echo "Error: Commit message required"
         echo "Usage: git-commit-all \"your commit message\""
@@ -74,7 +74,7 @@ git-commit-all() {
 }
 
 # git reset-this - Hard reset to HEAD
-git-reset-this() {
+gitresetthis() {
     echo "Warning: This will discard all uncommitted changes!"
     read -p "Are you sure? (y/N) " -n 1 -r
     echo
@@ -86,11 +86,11 @@ git-reset-this() {
     fi
 }
 
-# Aliases for 'git' prefix usage
-alias git-setup='git-setup'
-alias git-push-this='git-push-this'
-alias git-commit-all='git-commit-all'
-alias git-reset-this='git-reset-this'
+# Aliases for 'git-' prefix usage
+alias git-setup='gitsetup'
+alias git-push-this='gitpushthis'
+alias git-commit-all='gitcommitall'
+alias git-reset-this='gitresetthis'
 
 # Shorter aliases using 'pit' prefix
 pit() {
@@ -100,19 +100,19 @@ pit() {
             ;;
         -s)
             shift
-            git-setup "$@"
+            gitsetup "$@"
             ;;
         -p)
             shift
-            git-push-this "$@"
+            gitpushthis "$@"
             ;;
         -c)
             shift
-            git-commit-all "$@"
+            gitcommitall "$@"
             ;;
         -r)
             shift
-            git-reset-this "$@"
+            gitresetthis "$@"
             ;;
         *)
             git "$@"
